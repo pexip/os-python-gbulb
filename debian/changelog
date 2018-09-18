@@ -1,0 +1,31 @@
+python-gbulb (0.6.1-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * New upstream release (Closes: #904388)
+  * Add dependency on python3-gi (Closes: #895726)
+
+ -- Philipp Kern <pkern@debian.org>  Tue, 18 Sep 2018 14:27:08 +0200
+
+python-gbulb (0.5.3-2) unstable; urgency=medium
+
+  * Fix suggested doc package name 
+
+ -- Konstantinos Margaritis <markos@debian.org>  Thu, 23 Feb 2017 11:19:29 +0200
+
+python-gbulb (0.5.3-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Konstantinos Margaritis <markos@debian.org>  Wed, 22 Feb 2017 13:06:25 +0200
+
+python-gbulb (0.5.2-2) unstable; urgency=medium
+
+  * Fix maintainer name in control file 
+
+ -- Konstantinos Margaritis <markos@debian.org>  Thu, 26 Jan 2017 11:53:51 +0200
+
+python-gbulb (0.5.2-1) unstable; urgency=medium
+
+  * Initial release (Closes: #852664) 
+
+ -- Konstantinos Margaritis <markos@debian.org>  Wed, 25 Jan 2017 09:59:57 +0100
