@@ -1,12 +1,14 @@
 Source: python-gbulb
 Section: python
 Priority: optional
-Maintainer: Konstantinos Margaritis <markos@debian.org>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Konstantinos Margaritis <markos@debian.org>
 Build-Depends: debhelper (>= 9), dh-python, python3-all, python3-setuptools, python3-gi, python3-sphinx
 Standards-Version: 3.9.8
 Homepage: https://github.com/nathan-hoad/gbulb
 X-Python3-Version: >= 3.2
 Testsuite: autopkgtest-pkg-python
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ bullseye
 
 Package: python3-gbulb
 Architecture: all
