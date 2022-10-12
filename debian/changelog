@@ -1,6 +1,7 @@
 python-gbulb (0.6.1-0.1pexip1) pexip; urgency=medium
 
   * Prepare Pexip packaging
+  * Make python3-gi a Recommends instead of Depends to break dep chain
 
  -- Huw Jones <huw@pexip.com>  Wed, 12 Oct 2022 14:39:34 +0000
 
