@@ -1,3 +1,11 @@
+python-gbulb (0.6.3-0.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * New upstream release.
+    - Compatible with Python 3.11. (Closes: #1025102)
+
+ -- Adrian Bunk <bunk@debian.org>  Fri, 27 Jan 2023 17:13:31 +0200
+
 python-gbulb (0.6.1-0.1) unstable; urgency=medium
 
   * Non-maintainer upload
