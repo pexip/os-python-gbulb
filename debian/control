@@ -8,7 +8,7 @@ Standards-Version: 4.5.1
 Homepage: https://github.com/nathan-hoad/gbulb
 X-Python3-Version: >= 3.7
 Testsuite: autopkgtest-pkg-python
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ bullseye
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: python3-gbulb
 Architecture: all
