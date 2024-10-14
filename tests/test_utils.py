@@ -13,8 +13,9 @@ import pytest
     ],
 )
 def test_install(gtk, gtk_available):
-    from gbulb import install
     import sys
+
+    from gbulb import install
 
     called = False
 
@@ -48,14 +49,24 @@ def test_install(gtk, gtk_available):
 
 def test_get_event_loop():
     import asyncio
+
     import gbulb
 
-    assert asyncio.get_event_loop() is gbulb.get_event_loop()
+    try:
+        loop = gbulb.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        assert asyncio.get_event_loop() is gbulb.get_event_loop()
+
+    finally:
+        loop.close()
 
 
 def test_wait_signal(glib_loop):
     import asyncio
+
     from gi.repository import GObject
+
     from gbulb import wait_signal
 
     class TestObject(GObject.GObject):
@@ -65,8 +76,7 @@ def test_wait_signal(glib_loop):
 
     t = TestObject()
 
-    def emitter():
-        yield
+    async def emitter():
         t.emit("foo", "frozen brains tell no tales")
 
     called = False
@@ -78,7 +88,13 @@ def test_wait_signal(glib_loop):
         called = True
 
     glib_loop.run_until_complete(
-        asyncio.wait([waiter(), emitter()], timeout=1)
+        asyncio.wait(
+            [
+                glib_loop.create_task(waiter()),
+                glib_loop.create_task(emitter()),
+            ],
+            timeout=1,
+        )
     )
 
     assert called
@@ -86,7 +102,9 @@ def test_wait_signal(glib_loop):
 
 def test_wait_signal_cancel(glib_loop):
     import asyncio
+
     from gi.repository import GObject
+
     from gbulb import wait_signal
 
     class TestObject(GObject.GObject):
@@ -96,16 +114,16 @@ def test_wait_signal_cancel(glib_loop):
 
     t = TestObject()
 
-    def emitter():
-        yield
+    async def emitter():
         t.emit("foo", "frozen brains tell no tales")
 
     called = False
     cancelled = False
 
-    def waiter():
+    async def waiter():
         nonlocal cancelled
-        yield
+        # Yield to the event loop
+        await asyncio.sleep(0)
 
         r = wait_signal(t, "foo")
 
@@ -119,7 +137,13 @@ def test_wait_signal_cancel(glib_loop):
         cancelled = True
 
     glib_loop.run_until_complete(
-        asyncio.wait([waiter(), emitter()], timeout=1)
+        asyncio.wait(
+            [
+                glib_loop.create_task(waiter()),
+                glib_loop.create_task(emitter()),
+            ],
+            timeout=1,
+        )
     )
 
     assert cancelled

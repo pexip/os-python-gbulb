@@ -1,29 +1,58 @@
-gbulb
-=====
+THIS PROJECT HAS BEEN ARCHIVED
+==============================
 
-.. image:: https://img.shields.io/pypi/pyversions/gbulb.svg
+**With the release of PyGObject 3.50.0, GBulb is no longer required**. PyGObject
+now contains native integration with the Python event loop. If you require
+asyncio support in your GTK app, we advise upgrading your project to use the
+native asyncio API of `PyGObject 3.50.0+ <https://pypi.org/project/PyGObject/>`__.
+
+Example usage of PyGObject with native asyncio support::
+
+    import asyncio
+
+    import gi
+    gi.require_version("Gtk", "3.0")
+
+    from gi.events import GLibEventLoopPolicy
+    from gi.repository import Gtk
+
+    asyncio.set_event_loop_policy(GlibEventLoopPolicy())
+
+    app = Gtk.Application(...)
+    app.run()
+
+The last published version of this project (`v0.6.6
+<https://pypi.org/project/gbulb/0.6.6/>`__) is compatible with versions of
+PyGObject prior to 3.50.0, and CPython 3.8-3.13.
+
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/gbulb.svg
    :target: https://pypi.python.org/pypi/gbulb
    :alt: Python Versions
 
-.. image:: https://img.shields.io/pypi/v/gbulb.svg
+.. |version| image:: https://img.shields.io/pypi/v/gbulb.svg
    :target: https://pypi.python.org/pypi/gbulb
    :alt: PyPI Version
 
-.. image:: https://img.shields.io/pypi/status/gbulb.svg
+.. |maturity| image:: https://img.shields.io/pypi/status/gbulb.svg
    :target: https://pypi.python.org/pypi/gbulb
    :alt: Maturity
 
-.. image:: https://img.shields.io/pypi/l/gbulb.svg
-   :target: https://github.com/beeware/gbulb/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/pypi/l/gbulb.svg
+   :target: https://github.com/beeware/gbulb/blob/main/LICENSE
    :alt: BSD License
 
-.. image:: https://github.com/beeware/gbulb/workflows/CI/badge.svg?branch=master
+.. |ci| image:: https://github.com/beeware/gbulb/workflows/CI/badge.svg?branch=main
    :target: https://github.com/beeware/gbulb/actions
    :alt: Build Status
 
-.. image:: https://img.shields.io/discord/836455665257021440?label=Discord%20Chat&logo=discord&style=plastic
+.. |social| image:: https://img.shields.io/discord/836455665257021440?label=Discord%20Chat&logo=discord&style=plastic
    :target: https://beeware.org/bee/chat/
    :alt: Discord server
+
+gbulb
+=====
+
+|pyversions| |version| |maturity| |license| |ci| |social|
 
 Gbulb is a Python library that implements a `PEP 3156
 <http://www.python.org/dev/peps/pep-3156/>`__ interface for the `GLib main event
@@ -36,7 +65,7 @@ If you notice any differences, please report them.
 Requirements
 ------------
 
-- python 3.6+
+- python 3.8+
 - pygobject
 - glib
 - gtk+3 (optional)
@@ -127,10 +156,43 @@ actually prevent you from doing that (in accordance with PEP 3156), however
 in mind that enclosed loops may be started at any time by third-party code
 calling GLib's primitives.
 
+Testing
+-------
+
+Testing GBulb requires a Linux environment that has GLib and GTK development
+libraries available.
+
+The tests folder contains a Dockerfile that defines a complete testing
+environment. To use the Docker environment, run the following from the root of
+the git checkout:
+
+   $ docker buildx build --tag beeware/gbulb:latest --file ./tests/Dockerfile .
+   $ docker run --rm --volume $(PWD):/home/brutus/gbulb:z -it beeware/gbulb:latest
+
+This will drop you into an Ubuntu 24.04 shell that has Python 3.8-3.13
+installed, mounting the current working directory as `/home/brutus/gbulb`. You
+can use this to create virtual environments for each Python version.
+
+Once you have an active virtual environment, run:
+
+   (venv) $ pip install -e .[dev]
+   (venv) $ pytest
+
+to run the test suite. Alternatively, you can install tox, and then run:
+
+   # To test a single Python version
+   (venv) $ tox -e py
+
+   # To test Python 3.10 specifically
+   (venv) $ tox -e py310
+
+   # To test all versions
+   (venv) $ tox
+
 Community
 ---------
 
-gblub is part of the `BeeWare suite`_. You can talk to the community through:
+gbulb is part of the `BeeWare suite`_. You can talk to the community through:
 
 * `@pybeeware on Twitter <https://twitter.com/pybeeware>`__
 

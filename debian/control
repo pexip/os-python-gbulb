@@ -1,11 +1,16 @@
 Source: python-gbulb
 Section: python
 Priority: optional
-Maintainer: Konstantinos Margaritis <markos@debian.org>
-Build-Depends: debhelper (>= 9), dh-python, python3-all, python3-setuptools, python3-gi, python3-sphinx
-Standards-Version: 3.9.8
-Homepage: https://github.com/nathan-hoad/gbulb
-X-Python3-Version: >= 3.2
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all,
+               python3-setuptools, python3-gi, python3-sphinx,
+               pybuild-plugin-pyproject
+Standards-Version: 4.7.0
+Homepage: https://github.com/beeware/gbulb
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-gbulb
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-gbulb.git
+Rules-Requires-Root: no
 Testsuite: autopkgtest-pkg-python
 
 Package: python3-gbulb

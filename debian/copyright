@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: python-gbulb
-Source: https://github.com/nathan-hoad/gbulb
+Source: https://github.com/beeware/gbulb
 
 Files: *
 Copyright: 2013-2017 Nathan Hoad
