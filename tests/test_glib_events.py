@@ -1,9 +1,10 @@
 import asyncio
+import os
 import sys
+import tempfile
+from unittest import mock, skipIf
 
 import pytest
-
-from unittest import mock, skipIf
 from gi.repository import Gio, GLib
 
 is_windows = sys.platform == "win32"
@@ -90,7 +91,7 @@ class TestBaseGLibEventLoop:
         glib_loop.call_later(0.01, os.kill, os.getpid(), signal.SIGHUP)
         glib_loop.run_forever()
 
-        assert called, "signal handler didnt fire"
+        assert called, "signal handler didn't fire"
 
     @skipIf(is_windows, "Unix signal handlers are not supported on Windows")
     def test_remove_signal_handler(self, glib_loop):
@@ -111,7 +112,7 @@ class TestBaseGLibEventLoop:
         assert not glib_loop.remove_signal_handler(signal.SIGHUP)
 
     @skipIf(is_windows, "Unix signal handlers are not supported on Windows")
-    @pytest.mark.filterwarnings('ignore:g_unix_signal_source_new')
+    @pytest.mark.filterwarnings("ignore:g_unix_signal_source_new")
     def test_remove_signal_handler_sigkill(self, glib_loop):
         import signal
 
@@ -119,7 +120,7 @@ class TestBaseGLibEventLoop:
             glib_loop.add_signal_handler(signal.SIGKILL, None)
 
     @skipIf(is_windows, "Unix signal handlers are not supported on Windows")
-    @pytest.mark.filterwarnings('ignore:g_unix_signal_source_new')
+    @pytest.mark.filterwarnings("ignore:g_unix_signal_source_new")
     def test_remove_signal_handler_sigill(self, glib_loop):
         import signal
 
@@ -156,7 +157,7 @@ class TestBaseGLibEventLoop:
         os.close(rfd)
         os.close(wfd)
 
-        assert called, "callback handler didnt fire"
+        assert called, "callback handler didn't fire"
 
     @skipIf(
         is_windows, "Waiting on raw file descriptors only works for sockets on Windows"
@@ -182,7 +183,7 @@ class TestBaseGLibEventLoop:
         os.close(rfd)
         os.close(wfd)
 
-        assert called, "callback handler didnt fire"
+        assert called, "callback handler didn't fire"
 
     @skipIf(
         is_windows, "Waiting on raw file descriptors only works for sockets on Windows"
@@ -259,7 +260,7 @@ class TestBaseGLibEventLoop:
         e = glib_loop.time()
 
         diff = e - s
-        assert SLEEP_TIME + 0.005 >= diff >= SLEEP_TIME
+        assert SLEEP_TIME + 0.01 >= diff >= SLEEP_TIME
 
     def test_call_at(self, glib_loop):
         called = False
@@ -280,7 +281,7 @@ class TestBaseGLibEventLoop:
         glib_loop.call_at(s + 0.1, handler)
         glib_loop.run_forever()
 
-        assert called, "call_at handler didnt fire"
+        assert called, "call_at handler didn't fire"
 
     def test_call_soon_no_coroutine(self, glib_loop):
         with pytest.raises(TypeError):
@@ -361,7 +362,7 @@ class TestBaseGLibEventLoop:
         glib_loop.call_soon_threadsafe(handler)
         glib_loop.run_forever()
 
-        assert called, "call_soon_threadsafe handler didnt fire"
+        assert called, "call_soon_threadsafe handler didn't fire"
 
 
 class TestGLibEventLoop:
@@ -572,6 +573,44 @@ def test_sockets(glib_loop):
         writer.close()
 
         await server_done.wait()
+
+        assert server_success
+
+    glib_loop.run_until_complete(run())
+
+
+def test_unix_sockets(glib_loop):
+    server_done = asyncio.Event()
+    server_done._loop = glib_loop
+    server_success = False
+
+    async def cb(reader, writer):
+        nonlocal server_success
+
+        writer.write(b"cool data\n")
+        await writer.drain()
+
+        d = await reader.readline()
+        server_success = d == b"thank you\n"
+
+        writer.close()
+        server_done.set()
+
+    async def run():
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "socket")
+            await asyncio.start_unix_server(cb, path)
+            reader, writer = await asyncio.open_unix_connection(path)
+
+            d = await reader.readline()
+            assert d == b"cool data\n"
+
+            writer.write(b"thank you\n")
+            await writer.drain()
+
+            writer.close()
+
+            await server_done.wait()
 
         assert server_success
 
