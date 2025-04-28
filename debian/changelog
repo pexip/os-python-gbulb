@@ -1,3 +1,23 @@
+python-gbulb (0.6.6-1) unstable; urgency=medium
+
+  * New upstream version 0.6.6
+  * Update Standards-Version to 4.7.0
+  * Fix d/watch file
+
+ -- Sudip Mukherjee <sudipm.mukherjee@gmail.com>  Mon, 14 Oct 2024 21:34:48 +0100
+
+python-gbulb (0.6.5-1) unstable; urgency=medium
+
+  * New upstream version 0.6.5
+  * Update to Standards-Version 4.6.2
+  * Update to compat level 13.
+  * Update new source url.
+  * Update maintainer. (Closes: #1004238)
+  * Add Vcs links to salsa.
+  * Fix whitespace in d/changelog.
+
+ -- Sudip Mukherjee <sudipm.mukherjee@gmail.com>  Wed, 29 May 2024 23:15:05 +0100
+
 python-gbulb (0.6.3-0.1+pexip24u3) pexip-bookworm; urgency=medium
 
   * New versioning scheme
@@ -41,7 +61,7 @@ python-gbulb (0.6.1-0.1) unstable; urgency=medium
 
 python-gbulb (0.5.3-2) unstable; urgency=medium
 
-  * Fix suggested doc package name 
+  * Fix suggested doc package name
 
  -- Konstantinos Margaritis <markos@debian.org>  Thu, 23 Feb 2017 11:19:29 +0200
 
@@ -53,12 +73,12 @@ python-gbulb (0.5.3-1) unstable; urgency=medium
 
 python-gbulb (0.5.2-2) unstable; urgency=medium
 
-  * Fix maintainer name in control file 
+  * Fix maintainer name in control file
 
  -- Konstantinos Margaritis <markos@debian.org>  Thu, 26 Jan 2017 11:53:51 +0200
 
 python-gbulb (0.5.2-1) unstable; urgency=medium
 
-  * Initial release (Closes: #852664) 
+  * Initial release (Closes: #852664)
 
  -- Konstantinos Margaritis <markos@debian.org>  Wed, 25 Jan 2017 09:59:57 +0100

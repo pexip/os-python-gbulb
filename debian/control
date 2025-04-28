@@ -2,11 +2,16 @@ Source: python-gbulb
 Section: python
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
-XSBC-Pexip-Original-Maintainer: Konstantinos Margaritis <markos@debian.org>
-Build-Depends: debhelper (>= 11), dh-python, python3-all, python3-setuptools, python3-gi, python3-sphinx
-Standards-Version: 4.5.1
-Homepage: https://github.com/nathan-hoad/gbulb
-X-Python3-Version: >= 3.7
+XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.org>
+XSBC-Pexip-Original-Uploaders: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all,
+               python3-setuptools, python3-gi, python3-sphinx,
+               pybuild-plugin-pyproject
+Standards-Version: 4.7.0
+Homepage: https://github.com/beeware/gbulb
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-gbulb
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-gbulb.git
+Rules-Requires-Root: no
 Testsuite: autopkgtest-pkg-python
 XS-Pexip-Upstream: http://deb.debian.org/debian/ trixie
 
