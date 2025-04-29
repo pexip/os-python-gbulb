@@ -1,3 +1,9 @@
+python-gbulb (0.6.6-1+pexip25u1) pexip-trixie; urgency=medium
+
+  * Initial trixie build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Tue, 29 Apr 2025 22:53:25 +0100
+
 python-gbulb (0.6.6-1) unstable; urgency=medium
 
   * New upstream version 0.6.6
